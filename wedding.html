@@ -1,0 +1,2240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#073B32">
+<title>Charan & Aadhya — Wedding</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+
+:root{
+    --green:#073B32;
+    --dark:#031F1A;
+    --gold:#C9A227;
+    --gold2:#E8C866;
+    --cream:#FFF8E7;
+    --soft:#F3E4C2;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--green);
+    color:var(--cream);
+    font-family:Montserrat,sans-serif;
+    overflow-x:hidden;
+}
+
+body.lock{
+    overflow:hidden;
+}
+
+button{
+    font:inherit;
+}
+
+button,
+a{
+    -webkit-tap-highlight-color:transparent;
+}
+
+/* =====================================================
+   CUSTOM CURSOR GLOW
+===================================================== */
+
+.cursor-glow{
+    position:fixed;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    pointer-events:none;
+    background:radial-gradient(
+        circle,
+        rgba(232,200,102,.11),
+        transparent 65%
+    );
+    transform:translate(-50%,-50%);
+    z-index:9990;
+    mix-blend-mode:screen;
+}
+
+@media(max-width:700px){
+    .cursor-glow{
+        display:none;
+    }
+}
+
+/* =====================================================
+   OPENING
+===================================================== */
+
+#opening{
+    position:fixed;
+    inset:0;
+    z-index:10000;
+    background:var(--dark);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    transition:
+        opacity 1.2s ease,
+        visibility 1.2s ease;
+}
+
+#opening.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.opening-content{
+    text-align:center;
+    position:relative;
+    z-index:5;
+}
+
+.opening-small{
+    font-size:9px;
+    letter-spacing:6px;
+    color:var(--soft);
+    opacity:.65;
+    margin-bottom:30px;
+}
+
+.opening-title{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(75px,20vw,180px);
+    line-height:.65;
+    font-weight:400;
+    color:var(--gold2);
+    animation:
+        titleIn 1.8s cubic-bezier(.16,1,.3,1),
+        goldPulse 4s infinite 2s;
+}
+
+.opening-title span{
+    display:block;
+}
+
+.opening-amp{
+    font-size:42px;
+    margin:30px 0;
+    color:var(--cream);
+}
+
+@keyframes titleIn{
+    from{
+        opacity:0;
+        transform:translateY(80px) scale(.8);
+        letter-spacing:30px;
+    }
+    to{
+        opacity:1;
+        transform:none;
+        letter-spacing:0;
+    }
+}
+
+@keyframes goldPulse{
+    0%,100%{
+        text-shadow:0 0 0 rgba(232,200,102,0);
+    }
+    50%{
+        text-shadow:
+            0 0 30px rgba(232,200,102,.35),
+            0 0 80px rgba(232,200,102,.12);
+    }
+}
+
+.open-button{
+    margin-top:50px;
+    width:180px;
+    height:55px;
+    border:1px solid var(--gold2);
+    color:var(--gold2);
+    background:transparent;
+    letter-spacing:4px;
+    font-size:9px;
+    position:relative;
+    overflow:hidden;
+    transition:.5s;
+}
+
+.open-button::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:var(--gold2);
+    transform:translateY(100%);
+    transition:.5s;
+    z-index:-1;
+}
+
+.open-button:hover{
+    color:var(--dark);
+}
+
+.open-button:hover::before{
+    transform:translateY(0);
+}
+
+/* =====================================================
+   ROTATING ORBITS
+===================================================== */
+
+.orbit-system{
+    position:absolute;
+    width:min(90vw,600px);
+    height:min(90vw,600px);
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    opacity:.3;
+}
+
+.orbit{
+    position:absolute;
+    inset:0;
+    border:1px solid rgba(232,200,102,.25);
+    border-radius:50%;
+}
+
+.orbit:nth-child(1){
+    transform:rotate(20deg) scale(.95);
+    animation:orbit1 20s linear infinite;
+}
+
+.orbit:nth-child(2){
+    transform:rotate(-35deg) scale(.7);
+    animation:orbit2 15s linear infinite;
+}
+
+.orbit:nth-child(3){
+    transform:rotate(70deg) scale(.45);
+    animation:orbit1 10s linear infinite reverse;
+}
+
+@keyframes orbit1{
+    to{
+        transform:rotate(380deg) scale(.95);
+    }
+}
+
+@keyframes orbit2{
+    to{
+        transform:rotate(-395deg) scale(.7);
+    }
+}
+
+.orbit::after{
+    content:"";
+    position:absolute;
+    width:6px;
+    height:6px;
+    background:var(--gold2);
+    border-radius:50%;
+    top:50%;
+    left:-3px;
+    box-shadow:0 0 20px var(--gold2);
+}
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+.particle-layer{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.particle{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:var(--gold2);
+    border-radius:50%;
+    opacity:.5;
+    animation:float 10s linear infinite;
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(110vh) scale(.2);
+        opacity:0;
+    }
+
+    20%{
+        opacity:.6;
+    }
+
+    80%{
+        opacity:.3;
+    }
+
+    100%{
+        transform:translateY(-10vh) scale(1);
+        opacity:0;
+    }
+}
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+section{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:100px 22px;
+    overflow:hidden;
+}
+
+.container{
+    width:min(1100px,100%);
+    position:relative;
+    z-index:3;
+}
+
+.label{
+    text-align:center;
+    font-size:8px;
+    letter-spacing:5px;
+    color:var(--gold2);
+    text-transform:uppercase;
+    margin-bottom:20px;
+}
+
+.heading{
+    text-align:center;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(48px,12vw,100px);
+    line-height:.85;
+    font-weight:400;
+}
+
+.heading em{
+    color:var(--gold2);
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+#hero{
+    min-height:100svh;
+}
+
+.hero-center{
+    text-align:center;
+}
+
+.hero-mini{
+    font-size:9px;
+    letter-spacing:6px;
+    opacity:.6;
+    margin-bottom:35px;
+}
+
+.hero-names{
+    position:relative;
+}
+
+.hero-name{
+    display:block;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(82px,20vw,190px);
+    line-height:.58;
+    color:transparent;
+    background:
+        linear-gradient(
+            120deg,
+            var(--gold),
+            var(--cream),
+            var(--gold2),
+            var(--gold)
+        );
+    background-size:300%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    animation:goldFlow 7s linear infinite;
+    border:0;
+    padding:0;
+    margin:auto;
+    cursor:pointer;
+}
+
+@keyframes goldFlow{
+    to{
+        background-position:300%;
+    }
+}
+
+.hero-amp{
+    display:block;
+    font-family:"Cormorant Garamond",serif;
+    font-size:55px;
+    margin:38px 0;
+    color:var(--cream);
+}
+
+.hero-caption{
+    margin-top:50px;
+    font-family:"Cormorant Garamond",serif;
+    font-size:21px;
+    font-style:italic;
+    color:var(--soft);
+}
+
+.scroll{
+    position:absolute;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:8px;
+    letter-spacing:4px;
+    color:var(--gold2);
+}
+
+.scroll::after{
+    content:"";
+    display:block;
+    width:1px;
+    height:45px;
+    background:var(--gold2);
+    margin:12px auto 0;
+    animation:scrollLine 1.8s infinite;
+}
+
+@keyframes scrollLine{
+    0%,100%{
+        transform:scaleY(.2);
+        transform-origin:top;
+    }
+    50%{
+        transform:scaleY(1);
+        transform-origin:top;
+    }
+}
+
+/* =====================================================
+   NAME INTERACTION
+===================================================== */
+
+.name-message{
+    min-height:30px;
+    margin-top:25px;
+    font-family:"Cormorant Garamond",serif;
+    font-size:20px;
+    color:var(--gold2);
+    opacity:0;
+    transform:translateY(15px);
+    transition:.6s;
+}
+
+.name-message.show{
+    opacity:1;
+    transform:none;
+}
+
+/* =====================================================
+   DATE
+===================================================== */
+
+.date-section{
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(201,162,39,.13),
+            transparent 45%
+        );
+}
+
+.date-ring{
+    width:min(78vw,360px);
+    aspect-ratio:1;
+    margin:70px auto 45px;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+}
+
+.date-ring::before,
+.date-ring::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    border:1px solid var(--gold);
+}
+
+.date-ring::before{
+    inset:0;
+    animation:spin 25s linear infinite;
+}
+
+.date-ring::after{
+    inset:20px;
+    border-style:dashed;
+    animation:spin 15s linear infinite reverse;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.date-core{
+    width:65%;
+    aspect-ratio:1;
+    border-radius:50%;
+    border:1px solid rgba(232,200,102,.45);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:rgba(4,42,36,.55);
+    transition:.7s;
+}
+
+.date-ring:hover .date-core{
+    transform:scale(1.06);
+    box-shadow:
+        0 0 50px rgba(232,200,102,.15);
+}
+
+.date-small{
+    font-size:7px;
+    letter-spacing:3px;
+    opacity:.6;
+}
+
+.date-value{
+    font-family:"Cormorant Garamond",serif;
+    font-size:31px;
+    color:var(--gold2);
+    margin:12px 0;
+}
+
+.date-hint{
+    font-size:7px;
+    letter-spacing:2px;
+    color:var(--soft);
+}
+
+.countdown{
+    max-width:650px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid rgba(232,200,102,.3);
+    border-bottom:1px solid rgba(232,200,102,.3);
+}
+
+.count{
+    text-align:center;
+    padding:20px 5px;
+    border-right:1px solid rgba(232,200,102,.2);
+}
+
+.count:last-child{
+    border:0;
+}
+
+.count strong{
+    display:block;
+    font-family:"Cormorant Garamond",serif;
+    font-size:42px;
+    color:var(--gold2);
+}
+
+.count span{
+    font-size:7px;
+    letter-spacing:2px;
+    opacity:.55;
+}
+
+/* =====================================================
+   CINEMATIC STORY
+===================================================== */
+
+.story{
+    min-height:100vh;
+}
+
+.story-line{
+    width:1px;
+    height:250px;
+    background:linear-gradient(
+        transparent,
+        var(--gold2),
+        transparent
+    );
+    margin:50px auto;
+    position:relative;
+}
+
+.story-dot{
+    width:14px;
+    height:14px;
+    border:1px solid var(--gold2);
+    transform:rotate(45deg);
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%) rotate(45deg);
+    animation:pulseDot 2s infinite;
+}
+
+@keyframes pulseDot{
+    0%,100%{
+        box-shadow:0 0 0 rgba(232,200,102,0);
+    }
+
+    50%{
+        box-shadow:0 0 35px rgba(232,200,102,.6);
+    }
+}
+
+.story-text{
+    text-align:center;
+    max-width:650px;
+    margin:auto;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(25px,6vw,45px);
+    line-height:1.2;
+}
+
+.story-text span{
+    color:var(--gold2);
+}
+
+/* =====================================================
+   EVENTS
+===================================================== */
+
+.event-track{
+    display:flex;
+    gap:18px;
+    overflow-x:auto;
+    padding:60px 5px 30px;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+}
+
+.event-track::-webkit-scrollbar{
+    display:none;
+}
+
+.event-card{
+    flex:0 0 270px;
+    height:340px;
+    border:1px solid rgba(232,200,102,.35);
+    padding:30px;
+    scroll-snap-align:center;
+    position:relative;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.05),
+            transparent
+        );
+    overflow:hidden;
+    transition:.5s;
+}
+
+.event-card::before{
+    content:"";
+    position:absolute;
+    width:160px;
+    height:160px;
+    border:1px solid rgba(232,200,102,.15);
+    border-radius:50%;
+    right:-80px;
+    top:-80px;
+    transition:.7s;
+}
+
+.event-card:hover::before{
+    transform:scale(2);
+}
+
+.event-number{
+    font-family:"Cormorant Garamond",serif;
+    color:rgba(232,200,102,.3);
+    font-size:50px;
+}
+
+.event-card h3{
+    font-family:"Cormorant Garamond",serif;
+    color:var(--gold2);
+    font-size:35px;
+    margin-top:80px;
+}
+
+.event-card p{
+    margin-top:15px;
+    font-size:8px;
+    line-height:2;
+    opacity:.55;
+}
+
+/* =====================================================
+   ENVELOPE
+===================================================== */
+
+.secret{
+    text-align:center;
+}
+
+.envelope{
+    width:min(90vw,380px);
+    height:240px;
+    margin:70px auto 30px;
+    position:relative;
+    cursor:pointer;
+    perspective:1000px;
+}
+
+.env-back{
+    position:absolute;
+    inset:0;
+    border:1px solid var(--gold);
+    background:#0a473c;
+}
+
+.env-flap{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:130px;
+    background:#0d5043;
+    clip-path:polygon(0 0,100% 0,50% 100%);
+    border-bottom:1px solid var(--gold);
+    transform-origin:top;
+    transition:1s;
+    z-index:3;
+}
+
+.env-seal{
+    position:absolute;
+    z-index:4;
+    width:62px;
+    height:62px;
+    border-radius:50%;
+    background:var(--gold2);
+    color:var(--dark);
+    display:grid;
+    place-items:center;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    font-family:"Cormorant Garamond",serif;
+    font-size:25px;
+    transition:.5s;
+}
+
+.envelope.open .env-flap{
+    transform:rotateX(180deg);
+}
+
+.envelope.open .env-seal{
+    transform:translate(-50%,-50%) scale(0);
+    opacity:0;
+}
+
+.secret-message{
+    font-family:"Cormorant Garamond",serif;
+    color:var(--gold2);
+    font-size:clamp(25px,6vw,42px);
+    opacity:0;
+    transform:translateY(25px);
+    transition:1s;
+}
+
+.secret-message.show{
+    opacity:1;
+    transform:none;
+}
+
+/* =====================================================
+   MAGNETIC BUTTON
+===================================================== */
+
+.magic-button{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    background:transparent;
+    border:1px solid var(--gold2);
+    color:var(--gold2);
+    display:block;
+    margin:60px auto;
+    position:relative;
+    transition:.4s;
+}
+
+.magic-button::before{
+    content:"";
+    position:absolute;
+    inset:8px;
+    border:1px dashed var(--gold);
+    border-radius:50%;
+    animation:spin 8s linear infinite;
+}
+
+.magic-button:hover{
+    transform:scale(1.1);
+    box-shadow:
+        0 0 40px rgba(232,200,102,.25);
+}
+
+.magic-result{
+    text-align:center;
+    font-family:"Cormorant Garamond",serif;
+    font-size:40px;
+    color:var(--gold2);
+    opacity:0;
+    transform:scale(.7);
+    transition:.8s;
+}
+
+.magic-result.show{
+    opacity:1;
+    transform:scale(1);
+}
+
+/* =====================================================
+   FINAL
+===================================================== */
+
+#final{
+    background:var(--dark);
+    text-align:center;
+}
+
+.final-title{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(55px,14vw,130px);
+    line-height:.75;
+    color:var(--gold2);
+}
+
+.final-names{
+    margin:60px 0;
+}
+
+.final-name{
+    display:block;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(70px,17vw,160px);
+    line-height:.6;
+    color:var(--cream);
+}
+
+.final-amp{
+    font-family:"Cormorant Garamond",serif;
+    font-size:45px;
+    margin:30px 0;
+    color:var(--gold2);
+}
+
+.final-message{
+    font-family:"Cormorant Garamond",serif;
+    font-style:italic;
+    font-size:22px;
+    color:var(--soft);
+}
+
+/* =====================================================
+   FINAL OVERLAY
+===================================================== */
+
+#finalOverlay{
+    position:fixed;
+    inset:0;
+    background:var(--dark);
+    z-index:20000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    opacity:0;
+    visibility:hidden;
+    transition:1s;
+    overflow:hidden;
+}
+
+#finalOverlay.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.final-overlay-names{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(70px,18vw,170px);
+    line-height:.6;
+    color:var(--gold2);
+    animation:finalReveal 2s cubic-bezier(.16,1,.3,1);
+}
+
+.final-overlay-names span{
+    display:block;
+}
+
+.final-overlay-amp{
+    color:var(--cream);
+    font-size:50px;
+    margin:35px 0;
+}
+
+@keyframes finalReveal{
+    from{
+        opacity:0;
+        transform:scale(.5);
+        filter:blur(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+        filter:blur(0);
+    }
+}
+
+.final-overlay-message{
+    margin-top:60px;
+    font-family:"Cormorant Garamond",serif;
+    font-size:22px;
+    color:var(--soft);
+}
+
+/* =====================================================
+   NAV
+===================================================== */
+
+.nav{
+    position:fixed;
+    z-index:5000;
+    bottom:18px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    padding:5px;
+    border:1px solid rgba(232,200,102,.3);
+    background:rgba(3,31,26,.8);
+    backdrop-filter:blur(18px);
+}
+
+.nav a{
+    min-width:60px;
+    height:40px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:var(--soft);
+    font-size:7px;
+    letter-spacing:1px;
+    opacity:.55;
+    transition:.3s;
+}
+
+.nav a:hover,
+.nav a.active{
+    color:var(--gold2);
+    opacity:1;
+}
+
+/* =====================================================
+   REVEAL
+===================================================== */
+
+.reveal{
+    opacity:0;
+    transform:translateY(60px);
+    transition:
+        opacity 1s cubic-bezier(.16,1,.3,1),
+        transform 1s cubic-bezier(.16,1,.3,1);
+}
+
+.reveal.show{
+    opacity:1;
+    transform:none;
+}
+
+/* =====================================================
+   BURST PARTICLES
+===================================================== */
+
+.burst{
+    position:fixed;
+    width:5px;
+    height:5px;
+    background:var(--gold2);
+    border-radius:50%;
+    z-index:30000;
+    pointer-events:none;
+    animation:burst 1.2s ease-out forwards;
+}
+
+@keyframes burst{
+    from{
+        transform:translate(0,0) scale(1);
+        opacity:1;
+    }
+
+    to{
+        transform:
+            translate(var(--x),var(--y))
+            scale(0);
+        opacity:0;
+    }
+}
+
+/* =====================================================
+   PETALS
+===================================================== */
+
+.petal{
+    position:fixed;
+    top:-20px;
+    width:9px;
+    height:14px;
+    background:var(--gold2);
+    border-radius:100% 0 100% 0;
+    pointer-events:none;
+    z-index:25000;
+    animation:petalFall linear forwards;
+}
+
+@keyframes petalFall{
+    to{
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+        opacity:0;
+    }
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:700px){
+
+    section{
+        padding:90px 18px;
+    }
+
+    .nav{
+        width:calc(100% - 20px);
+    }
+
+    .nav a{
+        flex:1;
+        min-width:0;
+    }
+
+    .hero-name{
+        font-size:76px;
+    }
+
+    .count strong{
+        font-size:28px;
+    }
+
+    .event-card{
+        flex-basis:260px;
+    }
+
+}
+
+@media(max-width:380px){
+
+    .hero-name{
+        font-size:67px;
+    }
+
+    .opening-title{
+        font-size:68px;
+    }
+
+    .hero-amp{
+        margin:30px 0;
+    }
+
+}
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+        transition-duration:.01ms !important;
+    }
+
+}
+</style>
+</head>
+
+<body class="lock">
+
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- =====================================================
+     OPENING
+===================================================== -->
+
+<div id="opening">
+
+    <div class="particle-layer" id="openingParticles"></div>
+
+    <div class="orbit-system">
+        <div class="orbit"></div>
+        <div class="orbit"></div>
+        <div class="orbit"></div>
+    </div>
+
+    <div class="opening-content">
+
+        <div class="opening-small">
+            A NEW CHAPTER BEGINS
+        </div>
+
+        <div class="opening-title">
+            <span id="openGroom">CHARAN</span>
+
+            <div class="opening-amp">&</div>
+
+            <span id="openBride">AADHYA</span>
+        </div>
+
+        <button
+            class="open-button"
+            onclick="openInvitation()">
+
+            OPEN
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section id="hero">
+
+    <div class="particle-layer" id="heroParticles"></div>
+
+    <div class="orbit-system">
+        <div class="orbit"></div>
+        <div class="orbit"></div>
+        <div class="orbit"></div>
+    </div>
+
+    <div class="container hero-center reveal">
+
+        <div class="hero-mini">
+            TWO HEARTS • ONE JOURNEY
+        </div>
+
+        <div class="hero-names">
+
+            <button
+                class="hero-name"
+                id="heroGroom"
+                onclick="nameReveal('groom')">
+
+                CHARAN
+
+            </button>
+
+            <span class="hero-amp">
+                &
+            </span>
+
+            <button
+                class="hero-name"
+                id="heroBride"
+                onclick="nameReveal('bride')">
+
+                AADHYA
+
+            </button>
+
+        </div>
+
+        <div class="hero-caption">
+            Two hearts. One beautiful beginning.
+        </div>
+
+        <div
+            class="name-message"
+            id="nameMessage">
+        </div>
+
+    </div>
+
+    <div class="scroll">
+        DISCOVER
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DATE
+===================================================== -->
+
+<section id="date">
+
+    <div class="container">
+
+        <div class="label reveal">
+            SAVE THE DATE
+        </div>
+
+        <h2 class="heading reveal">
+            Our <em>moment.</em>
+        </h2>
+
+        <div
+            class="date-ring reveal"
+            onclick="revealDate()">
+
+            <div class="date-core">
+
+                <div class="date-small">
+                    WEDDING DAY
+                </div>
+
+                <div
+                    class="date-value"
+                    id="dateValue">
+
+                    TAP TO REVEAL
+
+                </div>
+
+                <div class="date-hint">
+                    CLICK THE RING
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="countdown reveal">
+
+            <div class="count">
+                <strong id="days">--</strong>
+                <span>DAYS</span>
+            </div>
+
+            <div class="count">
+                <strong id="hours">--</strong>
+                <span>HOURS</span>
+            </div>
+
+            <div class="count">
+                <strong id="minutes">--</strong>
+                <span>MINUTES</span>
+            </div>
+
+            <div class="count">
+                <strong id="seconds">--</strong>
+                <span>SECONDS</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STORY
+===================================================== -->
+
+<section class="story">
+
+    <div class="container">
+
+        <div class="label reveal">
+            ONE STORY
+        </div>
+
+        <h2 class="heading reveal">
+            From <em>this moment</em><br>
+            to forever.
+        </h2>
+
+        <div class="story-line reveal">
+            <div class="story-dot"></div>
+        </div>
+
+        <div class="story-text reveal">
+
+            Some moments are ordinary.
+
+            <br><br>
+
+            And then there are moments
+
+            <span>
+                that change everything.
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     EVENTS
+===================================================== -->
+
+<section id="events">
+
+    <div class="container">
+
+        <div class="label reveal">
+            THE CELEBRATION
+        </div>
+
+        <h2 class="heading reveal">
+            Moments worth<br>
+            <em>remembering.</em>
+        </h2>
+
+        <div class="event-track">
+
+            <div class="event-card reveal">
+
+                <div class="event-number">
+                    01
+                </div>
+
+                <h3>
+                    Engagement
+                </h3>
+
+                <p>
+                    EVENT DATE<br>
+                    EVENT TIME<br>
+                    VENUE NAME
+                </p>
+
+            </div>
+
+
+            <div class="event-card reveal">
+
+                <div class="event-number">
+                    02
+                </div>
+
+                <h3>
+                    Mehendi
+                </h3>
+
+                <p>
+                    EVENT DATE<br>
+                    EVENT TIME<br>
+                    VENUE NAME
+                </p>
+
+            </div>
+
+
+            <div class="event-card reveal">
+
+                <div class="event-number">
+                    03
+                </div>
+
+                <h3>
+                    Wedding
+                </h3>
+
+                <p>
+                    EVENT DATE<br>
+                    EVENT TIME<br>
+                    VENUE NAME
+                </p>
+
+            </div>
+
+
+            <div class="event-card reveal">
+
+                <div class="event-number">
+                    04
+                </div>
+
+                <h3>
+                    Reception
+                </h3>
+
+                <p>
+                    EVENT DATE<br>
+                    EVENT TIME<br>
+                    VENUE NAME
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SECRET
+===================================================== -->
+
+<section class="secret">
+
+    <div class="container">
+
+        <div class="label reveal">
+            A LITTLE SURPRISE
+        </div>
+
+        <h2 class="heading reveal">
+            Open <em>this.</em>
+        </h2>
+
+        <div
+            class="envelope reveal"
+            id="envelope"
+            onclick="openEnvelope()">
+
+            <div class="env-back"></div>
+
+            <div class="env-flap"></div>
+
+            <div class="env-seal">
+                ♥
+            </div>
+
+        </div>
+
+        <div
+            class="secret-message"
+            id="secretMessage">
+
+            Some stories are written in pages.<br>
+            Ours is being written in moments.
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MAGIC
+===================================================== -->
+
+<section>
+
+    <div class="container">
+
+        <div class="label reveal">
+            ONE LAST LITTLE THING
+        </div>
+
+        <h2 class="heading reveal">
+            Touch the <em>magic.</em>
+        </h2>
+
+        <button
+            class="magic-button reveal"
+            onclick="magicBurst(event)">
+
+            ✦
+
+        </button>
+
+        <div
+            class="magic-result"
+            id="magicResult">
+
+            CHARAN ♥ AADHYA
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL
+===================================================== -->
+
+<section id="final">
+
+    <div class="container">
+
+        <div class="label reveal">
+            THE BEGINNING OF
+        </div>
+
+        <div class="final-title reveal">
+            FOREVER
+        </div>
+
+        <div class="final-names reveal">
+
+            <span
+                class="final-name"
+                id="finalGroom">
+
+                CHARAN
+
+            </span>
+
+            <div class="final-amp">
+                &
+            </div>
+
+            <span
+                class="final-name"
+                id="finalBride">
+
+                AADHYA
+
+            </span>
+
+        </div>
+
+        <div class="final-message reveal">
+            Thank you for being part of our story.
+        </div>
+
+        <button
+            class="open-button reveal"
+            style="margin-top:55px;"
+            onclick="lastSurprise()">
+
+            ONE LAST SURPRISE
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav class="nav">
+
+    <a href="#hero">HOME</a>
+    <a href="#date">DATE</a>
+    <a href="#events">EVENTS</a>
+    <a href="#final">FOREVER</a>
+
+</nav>
+
+
+<!-- =====================================================
+     FINAL OVERLAY
+===================================================== -->
+
+<div id="finalOverlay">
+
+    <div class="particle-layer" id="finalParticles"></div>
+
+    <div class="orbit-system">
+
+        <div class="orbit"></div>
+        <div class="orbit"></div>
+        <div class="orbit"></div>
+
+    </div>
+
+    <div>
+
+        <div class="label">
+            AND SO IT BEGINS
+        </div>
+
+        <div class="final-overlay-names">
+
+            <span id="overlayGroom">
+                CHARAN
+            </span>
+
+            <div class="final-overlay-amp">
+                &
+            </div>
+
+            <span id="overlayBride">
+                AADHYA
+            </span>
+
+        </div>
+
+        <div class="final-overlay-message">
+            Forever starts here.
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   EDIT ONLY THESE DETAILS
+===================================================== */
+
+const weddingData = {
+
+    groom: "CHARAN",
+
+    bride: "AADHYA",
+
+    /* Change only these later */
+
+    date: "YYYY-MM-DD",
+
+    time: "TIME",
+
+    venue: "VENUE NAME",
+
+    city: "CITY"
+
+};
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    updateData();
+
+    createParticles(
+        "openingParticles",
+        25
+    );
+
+    createParticles(
+        "heroParticles",
+        35
+    );
+
+    createParticles(
+        "finalParticles",
+        40
+    );
+
+    revealObserver();
+
+    navigationObserver();
+
+});
+
+
+/* =====================================================
+   DATA
+===================================================== */
+
+function updateData(){
+
+    document.getElementById("openGroom")
+        .textContent =
+        weddingData.groom;
+
+    document.getElementById("openBride")
+        .textContent =
+        weddingData.bride;
+
+    document.getElementById("heroGroom")
+        .textContent =
+        weddingData.groom;
+
+    document.getElementById("heroBride")
+        .textContent =
+        weddingData.bride;
+
+    document.getElementById("finalGroom")
+        .textContent =
+        weddingData.groom;
+
+    document.getElementById("finalBride")
+        .textContent =
+        weddingData.bride;
+
+    document.getElementById("overlayGroom")
+        .textContent =
+        weddingData.groom;
+
+    document.getElementById("overlayBride")
+        .textContent =
+        weddingData.bride;
+
+}
+
+
+/* =====================================================
+   OPEN
+===================================================== */
+
+function openInvitation(){
+
+    burst(
+        window.innerWidth/2,
+        window.innerHeight/2,
+        50
+    );
+
+    createPetals(20);
+
+    setTimeout(()=>{
+
+        document
+            .getElementById("opening")
+            .classList
+            .add("hide");
+
+        document.body.classList.remove("lock");
+
+    },500);
+
+}
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+function createParticles(id,count){
+
+    const layer =
+        document.getElementById(id);
+
+    if(!layer)return;
+
+    for(let i=0;i<count;i++){
+
+        const p =
+            document.createElement("div");
+
+        p.className="particle";
+
+        p.style.left =
+            Math.random()*100+"%";
+
+        p.style.animationDuration =
+            (8+Math.random()*15)+"s";
+
+        p.style.animationDelay =
+            (-Math.random()*20)+"s";
+
+        p.style.opacity =
+            .15+Math.random()*.5;
+
+        layer.appendChild(p);
+
+    }
+
+}
+
+
+/* =====================================================
+   NAME CLICK
+===================================================== */
+
+function nameReveal(type){
+
+    const box =
+        document.getElementById("nameMessage");
+
+    if(type==="groom"){
+
+        box.textContent =
+            "And then, he found his forever.";
+
+        burstElement(
+            document.getElementById("heroGroom")
+        );
+
+    }else{
+
+        box.textContent =
+            "And then, she found her forever.";
+
+        burstElement(
+            document.getElementById("heroBride")
+        );
+
+        createPetals(12);
+
+    }
+
+    box.classList.add("show");
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function revealDate(){
+
+    const value =
+        document.getElementById("dateValue");
+
+    if(
+        weddingData.date ===
+        "YYYY-MM-DD"
+    ){
+
+        value.textContent =
+            "YOUR DATE";
+
+        return;
+
+    }
+
+    const date =
+        new Date(
+            weddingData.date+
+            "T"+
+            weddingData.time
+        );
+
+    value.textContent =
+        date.toLocaleDateString(
+            "en-IN",
+            {
+                day:"numeric",
+                month:"long",
+                year:"numeric"
+            }
+        );
+
+}
+
+
+/* =====================================================
+   COUNTDOWN
+===================================================== */
+
+function countdown(){
+
+    if(
+        weddingData.date ===
+        "YYYY-MM-DD"
+    ){
+
+        ["days","hours","minutes","seconds"]
+        .forEach(id=>{
+            document.getElementById(id)
+                .textContent="--";
+        });
+
+        return;
+
+    }
+
+    const target =
+        new Date(
+            weddingData.date+
+            "T"+
+            weddingData.time
+        ).getTime();
+
+    const now =
+        Date.now();
+
+    const distance =
+        target-now;
+
+    if(distance<=0)return;
+
+    const d =
+        Math.floor(
+            distance/
+            (1000*60*60*24)
+        );
+
+    const h =
+        Math.floor(
+            distance/
+            (1000*60*60)%24
+        );
+
+    const m =
+        Math.floor(
+            distance/
+            (1000*60)%60
+        );
+
+    const s =
+        Math.floor(
+            distance/1000%60
+        );
+
+    document.getElementById("days")
+        .textContent=
+        String(d).padStart(2,"0");
+
+    document.getElementById("hours")
+        .textContent=
+        String(h).padStart(2,"0");
+
+    document.getElementById("minutes")
+        .textContent=
+        String(m).padStart(2,"0");
+
+    document.getElementById("seconds")
+        .textContent=
+        String(s).padStart(2,"0");
+
+}
+
+setInterval(countdown,1000);
+
+countdown();
+
+
+/* =====================================================
+   ENVELOPE
+===================================================== */
+
+function openEnvelope(){
+
+    const envelope =
+        document.getElementById("envelope");
+
+    const message =
+        document.getElementById("secretMessage");
+
+    envelope.classList.add("open");
+
+    setTimeout(()=>{
+
+        message.classList.add("show");
+
+        createPetals(25);
+
+        burst(
+            window.innerWidth/2,
+            window.innerHeight/2,
+            30
+        );
+
+    },600);
+
+}
+
+
+/* =====================================================
+   MAGIC
+===================================================== */
+
+function magicBurst(event){
+
+    const result =
+        document.getElementById("magicResult");
+
+    result.classList.add("show");
+
+    const rect =
+        event.currentTarget
+            .getBoundingClientRect();
+
+    burst(
+        rect.left+rect.width/2,
+        rect.top+rect.height/2,
+        45
+    );
+
+    createPetals(30);
+
+}
+
+
+/* =====================================================
+   FINAL
+===================================================== */
+
+function lastSurprise(){
+
+    const overlay =
+        document.getElementById("finalOverlay");
+
+    overlay.classList.add("show");
+
+    document.body.classList.add("lock");
+
+    burst(
+        window.innerWidth/2,
+        window.innerHeight/2,
+        80
+    );
+
+    createPetals(60);
+
+}
+
+
+/* =====================================================
+   BURST
+===================================================== */
+
+function burst(x,y,count){
+
+    for(let i=0;i<count;i++){
+
+        const p =
+            document.createElement("div");
+
+        p.className="burst";
+
+        p.style.left=x+"px";
+        p.style.top=y+"px";
+
+        const angle =
+            Math.random()*Math.PI*2;
+
+        const distance =
+            50+
+            Math.random()*280;
+
+        p.style.setProperty(
+            "--x",
+            Math.cos(angle)*distance+"px"
+        );
+
+        p.style.setProperty(
+            "--y",
+            Math.sin(angle)*distance+"px"
+        );
+
+        document.body.appendChild(p);
+
+        setTimeout(()=>{
+            p.remove();
+        },1300);
+
+    }
+
+}
+
+
+function burstElement(element){
+
+    const rect =
+        element.getBoundingClientRect();
+
+    burst(
+        rect.left+rect.width/2,
+        rect.top+rect.height/2,
+        25
+    );
+
+}
+
+
+/* =====================================================
+   PETALS
+===================================================== */
+
+function createPetals(count){
+
+    for(let i=0;i<count;i++){
+
+        const petal =
+            document.createElement("div");
+
+        petal.className="petal";
+
+        petal.style.left =
+            Math.random()*100+"vw";
+
+        petal.style.animationDuration =
+            3+
+            Math.random()*5+
+            "s";
+
+        petal.style.animationDelay =
+            Math.random()*1.5+
+            "s";
+
+        document.body.appendChild(petal);
+
+        setTimeout(()=>{
+            petal.remove();
+        },9000);
+
+    }
+
+}
+
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+function revealObserver(){
+
+    const elements =
+        document.querySelectorAll(".reveal");
+
+    const observer =
+        new IntersectionObserver(
+            entries=>{
+
+                entries.forEach(entry=>{
+
+                    if(entry.isIntersecting){
+
+                        entry.target
+                            .classList
+                            .add("show");
+
+                    }
+
+                });
+
+            },
+            {
+                threshold:.12
+            }
+        );
+
+    elements.forEach(el=>{
+        observer.observe(el);
+    });
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function navigationObserver(){
+
+    const sections =
+        document.querySelectorAll("section");
+
+    const links =
+        document.querySelectorAll(".nav a");
+
+    const observer =
+        new IntersectionObserver(
+            entries=>{
+
+                entries.forEach(entry=>{
+
+                    if(entry.isIntersecting){
+
+                        links.forEach(link=>{
+                            link.classList.remove("active");
+
+                            if(
+                                link.getAttribute("href")
+                                ===
+                                "#"+
+                                entry.target.id
+                            ){
+                                link.classList.add("active");
+                            }
+
+                        });
+
+                    }
+
+                });
+
+            },
+            {
+                threshold:.45
+            }
+        );
+
+    sections.forEach(section=>{
+        observer.observe(section);
+    });
+
+}
+
+
+/* =====================================================
+   CURSOR GLOW
+===================================================== */
+
+document.addEventListener("mousemove",event=>{
+
+    const glow =
+        document.getElementById("cursorGlow");
+
+    glow.style.left =
+        event.clientX+"px";
+
+    glow.style.top =
+        event.clientY+"px";
+
+});
+
+
+/* =====================================================
+   TOUCH INTERACTION
+===================================================== */
+
+document.addEventListener(
+    "touchstart",
+    ()=>{},
+    {passive:true}
+);
+
+</script>
+
+</body>
+</html>
